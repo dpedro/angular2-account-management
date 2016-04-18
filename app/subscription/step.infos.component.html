@@ -1,3 +1,5 @@
+<h3>Infos</h3>
+
 <form [ngFormModel]="subscriptionForm" (submit)="saveUser()">
   <label for="name">Name</label>
   <input ngControl="name" id="name" #name="ngForm" />
@@ -10,5 +12,7 @@
   
   <button type="submit" [disabled]="!subscriptionForm.valid">Submit</button>
 </form> 
+<!--a href="#/Dashboard">link to dashboard component</a-->
 <a [routerLink]="['Dashboard']">link to dashboard component</a>
+<br />
 <a [routerLink]="['StepRecap']">link to recap component</a>
