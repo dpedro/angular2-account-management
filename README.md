@@ -1,1 +1,1 @@
-# angular2-subscription-form
+# angular2-account-management
