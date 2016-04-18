@@ -15,7 +15,8 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 @RouteConfig([
   { path: '/infos/', name: 'StepInfos', component: StepInfosComponent, useAsDefault: true },
   { path: '/recap/', name: 'StepRecap', component: RecapComponent},
-  { path: '../Dashboard', name: 'Dashboard', component: DashboardComponent }
+  /*{ path: '../Dashboard', name: 'Dashboard', component: DashboardComponent },*/
+  { path: '/Dashboard', name: 'Dashboard', component: DashboardComponent }
 ])
 export class SubscriptionComponent { 
   
