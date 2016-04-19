@@ -1,8 +1,8 @@
 import { Component } from 'angular2/core';
 import { FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
 import { ValidationService} from './validation.service';
-import { Subscription} from './subscription';
-import {RouterLink} from 'angular2/router';
+import { SubscriptionService } from './subscription.service';
+import { RouterLink } from 'angular2/router';
 
 @Component({
   selector: 'subscription-form-root',
@@ -19,7 +19,7 @@ export class StepInfosComponent {
   
   constructor(
     private _formBuilder: FormBuilder,
-    subscription: Subscription
+    subscription: SubscriptionService
     ) {
       
     this.subscriptionForm = this._formBuilder.group({

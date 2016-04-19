@@ -1,7 +1,7 @@
 import { Component } from 'angular2/core';
 import { FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
 import { ValidationService} from './validation.service';
-import { Subscription} from './subscription';
+import { SubscriptionService } from './subscription.service';
 import { RouterLink } from 'angular2/router';
 
 @Component({
@@ -11,11 +11,11 @@ import { RouterLink } from 'angular2/router';
 })
 
 export class RecapComponent { 
-  subscription: Subscription;
+  subscription: SubscriptionService;
   //subscription = new Subscription(1 , "Hello, world!");
   
   constructor(
-    subscription: Subscription
+    subscription: SubscriptionService
     ) {
 
     console.log("SubscriptionClass", subscription.getName(), subscription.time)
