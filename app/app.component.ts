@@ -4,7 +4,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS,
         LocationStrategy, HashLocationStrategy } from 'angular2/router';
 import { DashboardComponent } from './dashboard/dashboard';
 import { SubscriptionComponent, SubscriptionService } from './subscription/subscription';
-//import { FormTabsComponent, FormTabsService } from './blocks/blocks';
+import { FormTabsService } from './blocks/blocks';
 
 @Component({
   selector: 'subscription-app',
@@ -14,6 +14,7 @@ import { SubscriptionComponent, SubscriptionService } from './subscription/subsc
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
     SubscriptionService,
+    FormTabsService,
     provide(LocationStrategy, {useClass: HashLocationStrategy})
   ]
 })

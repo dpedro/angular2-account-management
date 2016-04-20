@@ -1,20 +1,18 @@
-import { Component, OnInit } from 'angular2/core';
-import { FormTabsService } from './form-tabs.service'
+import { Component, OnInit, Input  } from 'angular2/core';
+import { FormTab } from './form-tabs';
 
 @Component({
-  selector: 'toast',
+  selector: 'form-tabs',
   templateUrl: 'app/blocks/form-tabs/form-tabs.component.html',
-  styleUrls: ['app/blocks/form-tabs/form-tabs.component.css'],
-  providers: [
-    FormTabsService
-  ]
+  styleUrls: ['app/blocks/form-tabs/form-tabs.component.css']
 })
-export class FormTabsComponent {
-  step: number;
-  tabsService: FormTabsService
+export class FormTabsComponent implements OnInit {
+  @Input() tabs: FormTab[];
   
-  constructor(tabsService: FormTabsService) {
-    this.step = tabsService.getStep();
+  constructor() {
   }
 
+  ngOnInit() {
+    console.log('tabs' + this.tabs);
+  }
 }
