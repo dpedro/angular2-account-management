@@ -29,7 +29,7 @@ export class SubscriptionComponent {
     console.log("constuctor", formTabs.getTabs().length);  
     
     if (!formTabs.getTabs().length) {
-      formTabs.addTab(new FormTab(1, 'Tab1', false));
+      formTabs.addTab(new FormTab(0, 'Tab1', false));
       formTabs.addTab(new FormTab(1, 'Tab2', false));
     }
     

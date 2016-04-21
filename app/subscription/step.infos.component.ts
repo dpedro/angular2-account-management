@@ -31,13 +31,16 @@ export class StepInfosComponent {
     
     subscription.setTime();
     console.log("SubscriptionClass", subscription.getName(), subscription.time)
-    formTabs.getTabById(0).select();
+    //formTabs.getTabById(0).select();
+    formTabs.getTabByName("Tab1").select();
+    formTabs.getTabByName("Tab2").unselect();
   }
   
   saveUser() {
     if (this.subscriptionForm.dirty && this.subscriptionForm.valid) {
       alert(`Name: ${this.subscriptionForm.value.name} Email: ${this.subscriptionForm.value.email}`);
       //this.subscription.name = "bob";
+      
       //console.log(this.subscription.name);  
     }
   }

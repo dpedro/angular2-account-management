@@ -3,6 +3,7 @@ import { FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
 import { ValidationService} from './validation.service';
 import { SubscriptionService } from './subscription.service';
 import { RouterLink } from 'angular2/router';
+import { FormTabsService } from '../blocks/form-tabs/form-tabs';
 
 @Component({
   selector: 'subscription-form-root',
@@ -15,11 +16,13 @@ export class RecapComponent {
   //subscription = new Subscription(1 , "Hello, world!");
   
   constructor(
-    subscription: SubscriptionService
+    subscription: SubscriptionService,
+    formTabs: FormTabsService
     ) {
 
     console.log("SubscriptionClass", subscription.getName(), subscription.time)
-    
+    formTabs.getTabByName("Tab1").unselect();
+    formTabs.getTabByName("Tab2").select();
   }
 
 }

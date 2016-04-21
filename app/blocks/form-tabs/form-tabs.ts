@@ -31,10 +31,34 @@ export class FormTabsService {
     this.tabs.push(FormTab);
   }  
   
-  getTabById(digit) {
-    return this.tabs[digit];  
+  getTabById(id) {
+    return this.tabs[id];  
   }
   
+  getTabByName(name) {
+    
+    return this.tabs.find(function(tab) {
+      if (tab.name === name) {
+        console.log("OK3", tab.id);
+        console.log("OK3", tab);
+        return tab;
+      }    
+  
+    })
+    
+    
+    /*
+         return this.tabs.map(function(tab) {
+      console.log(tab);
+      if (tab.name === name) {
+        console.log("OK3");
+        return tab;
+      }
+    })
+    
+    */
+  }
+    
   removeTabs() {
     this.tabs = [];
   }
