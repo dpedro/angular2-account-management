@@ -1,4 +1,6 @@
 {{step}}
 <ul>
-    <li *ngFor="#tab of tabs; #i = index">{{tab.nameStep}}</li>
+    <li *ngFor="#tab of tabs; #i = index">
+        {{tab.id}} - {{tab.name}} - {{tab.selected}}
+    </li>
 </ul>

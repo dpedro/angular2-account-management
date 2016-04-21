@@ -2,39 +2,46 @@ import { Injectable } from 'angular2/core';
 
 @Injectable()
 export class FormTab {
-  private numStep;
-  private nameStep;
+  private id;
+  private name;
+  public selected;
   
-  constructor(numStep, nameStep) { 
-    this.numStep = numStep;
-    this.nameStep = nameStep;
+  constructor(id, name, selected) { 
+    this.id = id;
+    this.name = name;
+    this.selected = selected;
+  }
+  
+  select() {
+    this.selected = true;
+  }
+  
+  unselect() {
+    this.selected = false;
   }
 }
 
 @Injectable()
 export class FormTabsService {
   private tabs = [];
-  //private tabs: FormTab[];
   
-  constructor() { 
-    //this.tabs = [];
-  }
-  
+  constructor() { }
   
   addTab(FormTab) {
     this.tabs.push(FormTab);
   }  
+  
+  getTabById(digit) {
+    return this.tabs[digit];  
+  }
+  
+  removeTabs() {
+    this.tabs = [];
+  }
+  
   getTabs() {
     return this.tabs;
   }
-  /*
-  setStep(stepNumber) {
-    this.numStep = stepNumber;
-  }    
-  
-  public getStep() {
-    return this.numStep;
-  }     
-  */
+
 }
 

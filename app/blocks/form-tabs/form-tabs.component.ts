@@ -14,5 +14,9 @@ export class FormTabsComponent implements OnInit {
 
   ngOnInit() {
     console.log('tabs' + this.tabs);
+    
+    this.tabs.map(function(tab) {
+      console.log(tab);
+    })
   }
 }
