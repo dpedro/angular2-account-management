@@ -12,7 +12,8 @@ import { FormTabsComponent } from '../blocks/form-tabs/form-tabs.component';
     <form-tabs [tabs]="tabs"></form-tabs>
     <router-outlet></router-outlet>
   `,
-  directives: [ROUTER_DIRECTIVES, FormTabsComponent]
+  directives: [ROUTER_DIRECTIVES, FormTabsComponent],
+  providers: [FormTabsService]
 })
 @RouteConfig([
   { path: '/infos/', name: 'StepInfos', component: StepInfosComponent, useAsDefault: true },

@@ -14,7 +14,6 @@ import { FormTabsService } from './blocks/blocks';
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
     SubscriptionService,
-    FormTabsService,
     provide(LocationStrategy, {useClass: HashLocationStrategy})
   ]
 })
