@@ -25,8 +25,6 @@ export class SubscriptionComponent {
   constructor(
     formTabs: FormTabsService
     ) {
-
-    console.log("constuctor", formTabs.getTabs().length);  
     
     if (!formTabs.getTabs().length) {
       formTabs.addTab(new FormTab(0, 'Tab1', false));

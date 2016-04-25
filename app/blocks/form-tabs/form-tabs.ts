@@ -39,24 +39,11 @@ export class FormTabsService {
     
     return this.tabs.find(function(tab) {
       if (tab.name === name) {
-        console.log("OK3", tab.id);
-        console.log("OK3", tab);
         return tab;
       }    
   
     })
-    
-    
-    /*
-         return this.tabs.map(function(tab) {
-      console.log(tab);
-      if (tab.name === name) {
-        console.log("OK3");
-        return tab;
-      }
-    })
-    
-    */
+
   }
     
   removeTabs() {

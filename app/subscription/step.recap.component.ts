@@ -20,7 +20,6 @@ export class RecapComponent {
     formTabs: FormTabsService
     ) {
 
-    console.log("SubscriptionClass", subscription.getName(), subscription.time)
     formTabs.getTabByName("Tab1").unselect();
     formTabs.getTabByName("Tab2").select();
   }

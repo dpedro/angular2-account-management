@@ -3,8 +3,10 @@ import { HTTP_PROVIDERS, XHRBackend } from 'angular2/http';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS,
         LocationStrategy, HashLocationStrategy } from 'angular2/router';
 import { DashboardComponent } from './dashboard/dashboard';
-import { SubscriptionComponent, SubscriptionService } from './subscription/subscription';
-import { FormTabsService } from './blocks/blocks';
+import { SubscriptionComponent, SubscriptionService } from './subscription/subscription.export';
+import { ExceptionService, FormTabsService } from './blocks/blocks.export';
+import { FormService } from './form/form.export';
+
 
 @Component({
   selector: 'subscription-app',
@@ -13,6 +15,8 @@ import { FormTabsService } from './blocks/blocks';
   providers: [
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
+    ExceptionService,
+    FormService,
     SubscriptionService,
     provide(LocationStrategy, {useClass: HashLocationStrategy})
   ]

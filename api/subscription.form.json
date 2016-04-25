@@ -1,0 +1,34 @@
+{
+  "form" : [
+    {
+      "id": "subscriptionForm",
+      "event": {
+        "method": "saveUser()"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "name",
+      "type": "text",
+      "label": {
+        "fr": "Nom :",
+        "en": "Name:"
+      },
+      "validation": {
+        "required": true
+      }
+    },
+    {
+      "id": "firstname",
+      "type": "text",
+      "label": {
+        "fr": "Prénom :",
+        "en": "Firstname:"
+      },
+      "validation": {
+        "required": true
+      }
+    }
+  ]
+}
