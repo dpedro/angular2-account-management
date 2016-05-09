@@ -1,5 +1,5 @@
-import { Component, OnInit} from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component, OnInit} from '@angular/core';
+import { Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { StepInfosComponent } from './step.infos.component';
 import { RecapComponent } from './step.recap.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -12,18 +12,19 @@ import { FormTabsComponent } from '../blocks/form-tabs/form-tabs.component';
     <form-tabs [tabs]="tabs"></form-tabs>
     <router-outlet></router-outlet>
   `,
-  directives: [ROUTER_DIRECTIVES, FormTabsComponent],
+  directives: [FormTabsComponent, ROUTER_DIRECTIVES],
   providers: [FormTabsService]
 })
-@RouteConfig([
-  { path: '/infos/', name: 'StepInfos', component: StepInfosComponent, useAsDefault: true },
-  { path: '/recap/', name: 'StepRecap', component: RecapComponent}
+@Routes([
+  { path: '/infos', component: StepInfosComponent },
+  { path: '/recap', component: RecapComponent}
 ])
 export class SubscriptionComponent { 
   tabs: FormTab[];
   
   constructor(
-    formTabs: FormTabsService
+    formTabs: FormTabsService,
+    private router: Router
     ) {
     
     if (!formTabs.getTabs().length) {
@@ -34,4 +35,8 @@ export class SubscriptionComponent {
     this.tabs = formTabs.getTabs();
   }
   
+
+  ngOnInit() {
+    this.router.navigate(['/Subscription/infos']);
+  }
 }

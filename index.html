@@ -18,7 +18,13 @@
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+    
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    
+    
+    <!--script src="node_modules/systemjs/dist/system-polyfills.js"></script>
     <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>   
 
     <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
@@ -26,8 +32,8 @@
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
 
-    <script src="https://code.angularjs.org/2.0.0-beta.8/http.dev.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.8/router.dev.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.17/http.dev.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.17/router.dev.js"></script-->
       
     <script src="https://code.angularjs.org/tools/typescript.js"></script>
     
@@ -35,7 +41,10 @@
     <script src="assets/bootstrap/bootstrap.min.js"></script> -->
        
     <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
     <script>
+      System.import('app').catch(function(err){ console.error(err);  });
+      /*
       System.config({
         transpiler: 'typescript', 
         typescriptOptions: { emitDecoratorMetadata: true }, 
@@ -44,7 +53,9 @@
         } 
       });
     System.import('app/main')
-          .then(null, console.error.bind(console));            
+          .then(null, console.error.bind(console));  
+          
+          */          
     </script>
   </head>
 
