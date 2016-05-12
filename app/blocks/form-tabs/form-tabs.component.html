@@ -1,6 +1,8 @@
-{{step}}
-<ul>
-    <li *ngFor="#tab of tabs; #i = index">
-        {{tab.id}} - {{tab.name}} - {{tab.selected}}
-    </li>
+   
+<ul class="nav nav-tabs" >
+  <li role="presentation" 
+    *ngFor="let tab of tabs; let i = index" 
+    [ngClass]="{visited : tab.visited, active: tab.active, disabled: tab.disabled}">
+    <a href="#onglet-1">{{tab.name}}</a>
+  </li>
 </ul>

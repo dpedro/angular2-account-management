@@ -4,21 +4,35 @@ import { Injectable } from '@angular/core';
 export class FormTab {
   private id;
   private name;
-  public selected;
-  
-  constructor(id, name, selected) { 
+  public visited;
+  public active;
+  public disabled;
+
+  constructor(id, name, active, visited, disabled) { 
     this.id = id;
     this.name = name;
-    this.selected = selected;
+    this.visited = visited;
+    this.active = active;
+    this.disabled = disabled;
   }
-  
-  select() {
-    this.selected = true;
+
+  setAsVisited() {
+    this.visited = true;
+    this.active = false;
+    this.disabled = false;
   }
-  
-  unselect() {
-    this.selected = false;
+  setAsActive() {
+    this.active = true;
+    this.visited = true;
+    this.disabled = false;
   }
+  setAsDisabled() {
+    this.disabled = true;
+    this.active = false;
+    this.visited = false;
+  }
+
+
 }
 
 @Injectable()
@@ -39,11 +53,24 @@ export class FormTabsService {
     
     return this.tabs.find(function(tab) {
       if (tab.name === name) {
+        console.log("OK3", tab.id);
+        console.log("OK3", tab);
         return tab;
       }    
   
     })
-
+    
+    
+    /*
+         return this.tabs.map(function(tab) {
+      console.log(tab);
+      if (tab.name === name) {
+        console.log("OK3");
+        return tab;
+      }
+    })
+    
+    */
   }
     
   removeTabs() {
