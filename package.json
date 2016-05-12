@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "angular2-account-management",
   "version": "1.0.0",
   "scripts": {
