@@ -2,7 +2,7 @@
 
 <form [ngFormModel]="subscriptionForm" (submit)="saveUser()">
                         
-                <div class="form-group" [ngClass]="{'has-error': formError.name }">
+                <div class="form-group" [ngClass]="{'has-error': formError.name&&name.touched }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Name</label>
 
                     <div class="col-md-8">
@@ -11,12 +11,12 @@
                                 type="text" 
                                 placeholder="Name (required)" 
                                 ngControl="name" />
-                        <span class="help-block" *ngIf="formError.name">
+                        <span class="help-block" *ngIf="formError.name&&name.touched">
                                 {{formError.name}}
                         </span>
                     </div>
                 </div>
-                <div class="form-group" [ngClass]="{'has-error': formError.email }">
+                <div class="form-group" [ngClass]="{'has-error': formError.email&&email.touched }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Email</label>
 
                     <div class="col-md-8">
@@ -25,12 +25,12 @@
                                 type="text" 
                                 placeholder="Email (required)" 
                                 ngControl="email" />
-                        <span class="help-block" *ngIf="formError.email">
+                        <span class="help-block" *ngIf="formError.email&&email.touched">
                                 {{formError.email}}
                         </span>
                     </div>
                 </div>                
-                <div class="form-group" [ngClass]="{'has-error': formError.director }">
+                <div class="form-group" [ngClass]="{'has-error': formError.director&&director.touched }">
                     <label class="col-md-2 control-label" for="inputDirector">Director</label>
 
                     <div class="col-md-8">
@@ -39,7 +39,7 @@
                                 type="text" 
                                 placeholder="Director (required)" 
                                 ngControl="director" />
-                        <span class="help-block" *ngIf="formError.director">
+                        <span class="help-block" *ngIf="formError.director&&director.touched">
                                 {{formError.director}}
                         </span>
                     </div>
@@ -57,4 +57,4 @@
 <a [routerLink]="['Dashboard']">link to dashboard component</a>-->
 <a href="#/Dashboard">link to dashboard component</a>
 <br />
-<a [routerLink]="['StepRecap']">link to recap component</a>
+<a [routerLink]="['/Subscription/recap']">link to recap component</a>

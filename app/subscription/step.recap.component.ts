@@ -22,8 +22,11 @@ export class RecapComponent {
     formTabs: FormTabsService
     ) {
 
-    formTabs.getTabByName("Tab1").unselect();
-    formTabs.getTabByName("Tab2").select();
+    console.log("SubscriptionClass", subscription.getName(), subscription.time)
+
+
+    formTabs.getTabByName('Etape 1').setAsVisited();
+    formTabs.getTabByName('Validation').setAsActive();
   }
 
 }

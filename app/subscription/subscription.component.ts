@@ -27,9 +27,12 @@ export class SubscriptionComponent {
     private router: Router
     ) {
     
+    console.log("constuctor", formTabs.getTabs().length);  
+    
     if (!formTabs.getTabs().length) {
-      formTabs.addTab(new FormTab(0, 'Tab1', false));
-      formTabs.addTab(new FormTab(1, 'Tab2', false));
+      formTabs.addTab(new FormTab(1, 'Etape 1', false, false, false));
+      formTabs.addTab(new FormTab(2, 'Validation', false, false, true));
+      formTabs.addTab(new FormTab(3, 'Confirmation', false, false, true));
     }
     
     this.tabs = formTabs.getTabs();

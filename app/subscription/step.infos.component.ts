@@ -1,5 +1,6 @@
 import { Component, OnInit, } from '@angular/core';
-import { FORM_PROVIDERS, FormBuilder, Validators} from '@angular/common';
+import { FORM_PROVIDERS, FormBuilder, Validators, AbstractControl, Control } from '@angular/common';
+//import { FormBuilder, ControlGroup, Control, Validators } from '@angular/common';
 import { ValidationService} from './validation.service';
 import { SubscriptionService } from './subscription.service';
 import { ROUTER_DIRECTIVES, OnActivate } from '@angular/router';
@@ -19,26 +20,13 @@ export class StepInfosComponent implements OnInit, OnActivate {
     metadata: FormMeta[];
     formError: { [id: string]: string };
     private _validationMessages: { [id: string]: { [id: string]: string } };
-
-    getInputs() {
-        this.inputs = [];
-
-        this._formService.getInputs()
-            .subscribe(inputs => {
-                this.inputs = inputs;
-                console.log(this.inputs);
-            });
-    }
-    getFormMetada() {
-        this.inputs = [];
-
-        this._formService.getFormMetadata()
-            .subscribe(metadata => {
-                this.metadata = metadata;
-                console.log(this.inputs);
-            });
-    }
-
+    
+    // Form controls
+    name: AbstractControl;
+    nameControl: Control;
+    email: AbstractControl;
+    director: AbstractControl;
+     
     constructor(
         private _formBuilder: FormBuilder,
         private _formService: FormService,
@@ -73,63 +61,64 @@ export class StepInfosComponent implements OnInit, OnActivate {
         _subscription.setTime();
         console.log("SubscriptionClass", _subscription.getName(), _subscription.time)
         //formTabs.getTabById(0).select();
-        _formTabs.getTabByName("Tab1").select();
-        _formTabs.getTabByName("Tab2").unselect();
+        _formTabs.getTabByName('Etape 1').setAsActive();
+        _formTabs.getTabByName('Validation').setAsDisabled();
     }
 
+
+    
     routerOnActivate(): void {
         console.log("router activated");
-        /*
-        this.titleControl = new Control(this.movie.title, Validators.compose([Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(50)]));
-        */    
-            
+        
+        // This is our new property, which we will access from the template
+        
+        this.nameControl = new Control('', Validators.compose([Validators.required]));
+        
         this.subscriptionForm = this._formBuilder.group({
-            'name': ['', Validators.required],
+            'name': this.nameControl,
             'email': ['', Validators.compose([Validators.required, ValidationService.emailValidator])],
             'director': ["",
                 Validators.compose([Validators.required,
-                    Validators.minLength(5),
-                    Validators.maxLength(50)])]
+                Validators.minLength(5),
+                Validators.maxLength(50)])]
         });
-         /*
-        this.editForm = this._fb.group({
-            'title': this.titleControl,
-            'director': [this.movie.director,
-                Validators.compose([Validators.required,
-                    Validators.minLength(5),
-                    Validators.maxLength(50)])],
-            'starRating': [this.movie.starRating,
-                NumberValidator.range(1, 5)],
-            'description': [this.movie.description]
-        });*/
 
+        this.name = this.subscriptionForm.controls['name'];
+        this.email = this.subscriptionForm.controls['email'];
+        this.director = this.subscriptionForm.controls['director'];
+    
         this.subscriptionForm.valueChanges
             .map(value => {
                 console.log(value);
                 console.log(value.name);
-                // Causes infinite loop
-                // this.titleControl.updateValue(value.title.toUpperCase());
                 
                 value.name = value.name.toUpperCase();
-                //this.subscriptionForm.controls["name"].updateValue(value.name.toUpperCase());
                 return value;
             })
             .subscribe(data => this.onValueChanged(data));
-        // this.editForm.valueChanges
-        //         .debounceTime(500)
-        //         .subscribe(data => this.onValueChanged(data));   
+            
+            
     }
-
+  
+      
     onValueChanged(data: any) {
+        // iterate over formError
         for (let field in this.formError) {
+            
+            // Verify that field property exist in formError
             if (this.formError.hasOwnProperty(field)) {
+                
+                // Check if the current field is valid
                 let hasError = this.subscriptionForm.controls[field].dirty &&
                     !this.subscriptionForm.controls[field].valid;
+                
+                // reset error message    
                 this.formError[field] = '';
+               
                 if (hasError) {
+                    // iterate over field error messages
                     for (let key in this.subscriptionForm.controls[field].errors) {
+                        // update array of error
                         if (this.subscriptionForm.controls[field].errors.hasOwnProperty(key)) {
                             this.formError[field] += this._validationMessages[field][key] + ' ';
                         }
@@ -149,4 +138,26 @@ export class StepInfosComponent implements OnInit, OnActivate {
             alert(`Name: ${this.subscriptionForm.value.name} Email: ${this.subscriptionForm.value.email}`);
         }
     }
+    
+    
+    
+    getInputs() {
+        this.inputs = [];
+
+        this._formService.getInputs()
+            .subscribe(inputs => {
+                this.inputs = inputs;
+                console.log(this.inputs);
+            });
+    }
+    getFormMetada() {
+        this.inputs = [];
+
+        this._formService.getFormMetadata()
+            .subscribe(metadata => {
+                this.metadata = metadata;
+                console.log(this.inputs);
+            });
+    }
+
 }
