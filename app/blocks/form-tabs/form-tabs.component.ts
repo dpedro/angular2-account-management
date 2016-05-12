@@ -1,4 +1,4 @@
-import { Component, OnInit, Input  } from '@angular/core';
+import { Component, Input  } from '@angular/core';
 import { FormTab } from './form-tabs';
 import { NgClass } from '@angular/common';
 
@@ -8,17 +8,8 @@ import { NgClass } from '@angular/common';
   styleUrls: ['app/blocks/form-tabs/form-tabs.component.css'],
   directives: [NgClass]
 })
-export class FormTabsComponent implements OnInit {
+export class FormTabsComponent {
   @Input() tabs: FormTab[];
   
-  constructor() {
-  }
-
-  ngOnInit() {
-    console.log('tabs' + this.tabs);
-    
-    this.tabs.map(function(tab) {
-      console.log(tab);
-    })
-  }
+  constructor() {}
 }

@@ -15,7 +15,6 @@ import { FormTabsService } from '../blocks/form-tabs/form-tabs';
 
 export class RecapComponent { 
   subscription: SubscriptionService;
-  //subscription = new Subscription(1 , "Hello, world!");
   
   constructor(
     subscription: SubscriptionService,
@@ -23,7 +22,6 @@ export class RecapComponent {
     ) {
 
     console.log("SubscriptionClass", subscription.getName(), subscription.time)
-
 
     formTabs.getTabByName('Etape 1').setAsVisited();
     formTabs.getTabByName('Validation').setAsActive();

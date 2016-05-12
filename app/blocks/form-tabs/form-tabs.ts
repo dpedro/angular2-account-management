@@ -32,7 +32,6 @@ export class FormTab {
     this.visited = false;
   }
 
-
 }
 
 @Injectable()
@@ -50,27 +49,11 @@ export class FormTabsService {
   }
   
   getTabByName(name) {
-    
     return this.tabs.find(function(tab) {
       if (tab.name === name) {
-        console.log("OK3", tab.id);
-        console.log("OK3", tab);
         return tab;
       }    
-  
     })
-    
-    
-    /*
-         return this.tabs.map(function(tab) {
-      console.log(tab);
-      if (tab.name === name) {
-        console.log("OK3");
-        return tab;
-      }
-    })
-    
-    */
   }
     
   removeTabs() {

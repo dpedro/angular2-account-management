@@ -1,6 +1,5 @@
 import { Component, OnInit, } from '@angular/core';
 import { FORM_PROVIDERS, FormBuilder, Validators, AbstractControl, Control } from '@angular/common';
-//import { FormBuilder, ControlGroup, Control, Validators } from '@angular/common';
 import { ValidationService} from './validation.service';
 import { SubscriptionService } from './subscription.service';
 import { ROUTER_DIRECTIVES, OnActivate } from '@angular/router';
@@ -56,21 +55,13 @@ export class StepInfosComponent implements OnInit, OnActivate {
             }
         };
 
-
-
         _subscription.setTime();
         console.log("SubscriptionClass", _subscription.getName(), _subscription.time)
-        //formTabs.getTabById(0).select();
         _formTabs.getTabByName('Etape 1').setAsActive();
         _formTabs.getTabByName('Validation').setAsDisabled();
     }
-
-
     
     routerOnActivate(): void {
-        console.log("router activated");
-        
-        // This is our new property, which we will access from the template
         
         this.nameControl = new Control('', Validators.compose([Validators.required]));
         
@@ -82,24 +73,22 @@ export class StepInfosComponent implements OnInit, OnActivate {
                 Validators.minLength(5),
                 Validators.maxLength(50)])]
         });
-
+        
+        // This is our new property, which we will access from the template
         this.name = this.subscriptionForm.controls['name'];
         this.email = this.subscriptionForm.controls['email'];
         this.director = this.subscriptionForm.controls['director'];
     
         this.subscriptionForm.valueChanges
             .map(value => {
-                console.log(value);
-                console.log(value.name);
+                //console.log(value);
+                //console.log(value.name);
                 
                 value.name = value.name.toUpperCase();
                 return value;
             })
             .subscribe(data => this.onValueChanged(data));
-            
-            
     }
-  
       
     onValueChanged(data: any) {
         // iterate over formError
@@ -134,12 +123,11 @@ export class StepInfosComponent implements OnInit, OnActivate {
     }
 
     saveUser() {
+        console.log("Save user");
         if (this.subscriptionForm.dirty && this.subscriptionForm.valid) {
             alert(`Name: ${this.subscriptionForm.value.name} Email: ${this.subscriptionForm.value.email}`);
         }
     }
-    
-    
     
     getInputs() {
         this.inputs = [];
@@ -147,7 +135,7 @@ export class StepInfosComponent implements OnInit, OnActivate {
         this._formService.getInputs()
             .subscribe(inputs => {
                 this.inputs = inputs;
-                console.log(this.inputs);
+                console.log("inputs", this.inputs);
             });
     }
     getFormMetada() {
@@ -156,7 +144,7 @@ export class StepInfosComponent implements OnInit, OnActivate {
         this._formService.getFormMetadata()
             .subscribe(metadata => {
                 this.metadata = metadata;
-                console.log(this.inputs);
+                console.log("Metadata", this.inputs);
             });
     }
 
