@@ -1,10 +1,15 @@
 import { Component, OnInit, } from '@angular/core';
-import { FORM_PROVIDERS, FormBuilder, Validators, AbstractControl, Control } from '@angular/common';
+import { FORM_PROVIDERS, FormBuilder, Validators, AbstractControl, Control, ControlGroup } from '@angular/common';
 import { ValidationService} from './validation.service';
 import { SubscriptionService } from './subscription.service';
 import { ROUTER_DIRECTIVES, OnActivate } from '@angular/router';
 import { FormTabsService } from '../blocks/form-tabs/form-tabs';
-import { FormMeta, Input, FormService } from '../form/form.service';
+//import { FormMeta, Input, FormService } from '../form/form.service';
+import { FormService } from '../form/form.service';
+
+import { SUBSCRIPTION_CONFIG } from './subscription.config';
+
+
 
 @Component({
     selector: 'subscription-form-root',
@@ -14,11 +19,12 @@ import { FormMeta, Input, FormService } from '../form/form.service';
 })
 
 export class StepInfosComponent implements OnInit, OnActivate {
-    subscriptionForm: any;
-    inputs: Input[];
-    metadata: FormMeta[];
-    formError: { [id: string]: string };
+    subscriptionForm: ControlGroup;
+    //inputs: Input[];
+    //metadata: FormMeta[];
     private _validationMessages: { [id: string]: { [id: string]: string } };
+    showErrors: Boolean = false;
+    //let subscriptionFormUrl = CONFIG.baseUrls.subscriptionForm;
     
     // Form controls
     name: AbstractControl;
@@ -33,20 +39,17 @@ export class StepInfosComponent implements OnInit, OnActivate {
         private _formTabs: FormTabsService
     ) {
 
+        this.showErrors = false;  
+        
         // Initialization of strings
-        this.formError = {
-            'name': '',
-            'email': '',
-            'director': ''
-        };
 
         this._validationMessages = {
             'name': {
-                'required': 'Movie title is required'
+                'required': 'Name is required'
             },
             'email': {
                'required': 'email is required',
-                'invalidEmailAddress': 'invalidEmailAddress'
+               'invalidEmailAddress': 'invalidEmailAddress'
             },
             'director': {
                 'required': 'Director is required',
@@ -65,6 +68,7 @@ export class StepInfosComponent implements OnInit, OnActivate {
         
         this.nameControl = new Control('', Validators.compose([Validators.required]));
         
+        // Validation by priority
         this.subscriptionForm = this._formBuilder.group({
             'name': this.nameControl,
             'email': ['', Validators.compose([Validators.required, ValidationService.emailValidator])],
@@ -74,61 +78,64 @@ export class StepInfosComponent implements OnInit, OnActivate {
                 Validators.maxLength(50)])]
         });
         
+        console.log(this.subscriptionForm.controls);
+        
         // This is our new property, which we will access from the template
         this.name = this.subscriptionForm.controls['name'];
         this.email = this.subscriptionForm.controls['email'];
         this.director = this.subscriptionForm.controls['director'];
-    
-        this.subscriptionForm.valueChanges
-            .map(value => {
-                //console.log(value);
-                //console.log(value.name);
-                
-                value.name = value.name.toUpperCase();
-                return value;
-            })
-            .subscribe(data => this.onValueChanged(data));
-    }
-      
-    onValueChanged(data: any) {
-        // iterate over formError
-        for (let field in this.formError) {
-            
-            // Verify that field property exist in formError
-            if (this.formError.hasOwnProperty(field)) {
-                
-                // Check if the current field is valid
-                let hasError = this.subscriptionForm.controls[field].dirty &&
-                    !this.subscriptionForm.controls[field].valid;
-                
-                // reset error message    
-                this.formError[field] = '';
-               
-                if (hasError) {
-                    // iterate over field error messages
-                    for (let key in this.subscriptionForm.controls[field].errors) {
-                        // update array of error
-                        if (this.subscriptionForm.controls[field].errors.hasOwnProperty(key)) {
-                            this.formError[field] += this._validationMessages[field][key] + ' ';
-                        }
-                    }
-                }
-            }
-        }
+
     }
     
+    
+    
+
+   /**
+   * @brief      Vérifie si un control est valide
+   *
+   * @param      { AbstractControl } control - La référence vers le control
+   *
+   * @return     Indique si le control est en erreur
+   */
+  private isControlInvalid(control) {
+    let invalidControl: Boolean = false;
+
+    if (!control.valid && this.showErrors) {
+      invalidControl = true;
+    } 
+
+     return invalidControl;    
+  }
+  
     ngOnInit() {
-        this.getInputs();
-        this.getFormMetada();
+        //this.getInputs();
+        //this.getFormMetada();
     }
 
-    saveUser() {
+    formErrors = [];
+    
+    getControlError(controlName:string) {
+        var error:string = "";
+        if (this.formErrors.hasOwnProperty(controlName)) {
+            error = this.formErrors[controlName];
+        }
+        return error;
+    }
+    validateForm() {
         console.log("Save user");
+        this.formErrors = this._formService.getFormErrors(this.subscriptionForm, this._validationMessages).errors; 
+        console.log(this.formErrors);
+        this.showErrors = true;
+        // scroll to top
+        scroll(0,0);
+        console.log(this.showErrors);
+    
         if (this.subscriptionForm.dirty && this.subscriptionForm.valid) {
-            alert(`Name: ${this.subscriptionForm.value.name} Email: ${this.subscriptionForm.value.email}`);
+            console.log(`Name: ${this.subscriptionForm.value.name} Email: ${this.subscriptionForm.value.email}`);
         }
     }
     
+    /*
     getInputs() {
         this.inputs = [];
 
@@ -147,5 +154,5 @@ export class StepInfosComponent implements OnInit, OnActivate {
                 console.log("Metadata", this.inputs);
             });
     }
-
+    */
 }

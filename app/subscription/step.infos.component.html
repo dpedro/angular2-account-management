@@ -1,8 +1,34 @@
 <h3>Infos</h3>
 
-<form [ngFormModel]="subscriptionForm" (submit)="saveUser()">
-                        
-                <div class="form-group" [ngClass]="{'has-error': formError.name&&name.touched }">
+
+            
+<form [ngFormModel]="subscriptionForm" (submit)="validateForm()">
+    
+                <div class="row div-error" *ngIf="!subscriptionForm.valid&&showErrors">
+                    <div class="col-lg-24">
+                        <div class="has-error error-block">
+                            <div class="errors-title">
+                                <div class="error-img"></div>
+                                <div class="error-msg">
+                                    Des erreurs ont été détectées :
+                                </div>
+                            </div>
+                            <ul>
+                                <li class="help-block" *ngIf="isControlInvalid(name)"> 
+                                    <a href="#msg-name">{{formErrors.name}} </a>
+                                </li>
+                                <li class="help-block" *ngIf="isControlInvalid(email)"> 
+                                    <a href="#msg-email">{{formErrors.email}}  </a>
+                                </li> 
+                                <li class="help-block" *ngIf="isControlInvalid(director)"> 
+                                    <a href="#msg-director">{{formErrors.director}} </a>
+                                </li>                                                            
+                            </ul>
+                        </div>
+                    </div>
+                </div>      
+                                 
+                <div class="form-group" [ngClass]="{'has-error': isControlInvalid(name) }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Name</label>
 
                     <div class="col-md-8">
@@ -11,12 +37,12 @@
                                 type="text" 
                                 placeholder="Name (required)" 
                                 ngControl="name" />
-                        <span class="help-block" *ngIf="formError.name&&name.touched">
-                                {{formError.name}}
+                        <span class="help-block" *ngIf="isControlInvalid(name)">
+                                {{getControlError("name")}}
                         </span>
                     </div>
                 </div>
-                <div class="form-group" [ngClass]="{'has-error': formError.email&&email.touched }">
+                <div class="form-group" [ngClass]="{'has-error': isControlInvalid(email) }">
                     <label class="col-md-2 control-label" for="inputMovieTitle">Email</label>
 
                     <div class="col-md-8">
@@ -25,12 +51,12 @@
                                 type="text" 
                                 placeholder="Email (required)" 
                                 ngControl="email" />
-                        <span class="help-block" *ngIf="formError.email&&email.touched">
-                                {{formError.email}}
+                        <span class="help-block" *ngIf="isControlInvalid(email)">
+                                {{getControlError("email")}}
                         </span>
                     </div>
                 </div>                
-                <div class="form-group" [ngClass]="{'has-error': formError.director&&director.touched }">
+                <div class="form-group" [ngClass]="{'has-error': isControlInvalid(director) }">
                     <label class="col-md-2 control-label" for="inputDirector">Director</label>
 
                     <div class="col-md-8">
@@ -39,8 +65,8 @@
                                 type="text" 
                                 placeholder="Director (required)" 
                                 ngControl="director" />
-                        <span class="help-block" *ngIf="formError.director&&director.touched">
-                                {{formError.director}}
+                        <span class="help-block" *ngIf="isControlInvalid(director)">
+                                {{getControlError("director")}}
                         </span>
                     </div>
                 </div>
@@ -50,8 +76,9 @@
   <input ngControl="email" id="email" />
   <div [hidden]="email.valid">Invalid</div>
   <div *ngIf="subscriptionForm.controls['email'].hasError('invalidEmailAddress')">Invalid Email</div>
-  -->
   <button type="submit" [disabled]="!subscriptionForm.valid">Submit</button>
+  -->
+  <button type="submit">Submit</button>
 </form> 
 <!--a href="#/Dashboard">link to dashboard component</a>
 <a [routerLink]="['Dashboard']">link to dashboard component</a>-->

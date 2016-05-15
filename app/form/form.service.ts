@@ -3,36 +3,43 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { ExceptionService } from '../blocks/blocks.export';
 import { CONFIG } from '../shared/shared';
+import { AbstractControl, Control, ControlGroup } from '@angular/common';
 
-let subscriptionFormUrl = CONFIG.baseUrls.subscriptionForm;
-
-export interface FormMeta {
-  id: string;
-}
-
-export interface Input {
-  id: string;
-  type: string;
-  label: any;
-  validation: any;
-}
 
 @Injectable()
 export class FormService {
-  constructor(private _http: Http,
-    private _exceptionService: ExceptionService) {
+  constructor() {
   }
 
-  getInputs() {
-    return this._http.get(subscriptionFormUrl)
-      .map((response: Response) =>  <Input[]>response.json().inputs)
-      .catch(this._exceptionService.catchBadResponse);
-  }
-  
-  getFormMetadata() {
-    return this._http.get(subscriptionFormUrl)
-      .map((response: Response) => <FormMeta[]>response.json().data)
-      .catch(this._exceptionService.catchBadResponse);
-  }
+getFormErrors(form: ControlGroup, validationMessages: Object) {
+        var nberrors: number = 0;  
+        var errors = [];
+        
+        // iterate over form controls
+        for (let field in form.controls) {
+            var fieldName: string;
+            var fieldControl: AbstractControl;
+            
+            // get field name
+            fieldName = field.toString();
+            fieldControl = form.controls[fieldName];
+            
+            // Check if the current field is valid
+            if (!fieldControl.valid) {
+                nberrors++;
+                
+                // iterate over field error messages
+                for (let key in fieldControl.errors) {
+                   errors[fieldName] = validationMessages[fieldName][key] + ' ';
+                   break;
+                }
+            }
+        }
+        
+        return {
+            "length": nberrors,
+            "errors": errors
+        };
+    }
 
 }
