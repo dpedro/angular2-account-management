@@ -1,15 +1,10 @@
 import { Component, OnInit, } from '@angular/core';
 import { FORM_PROVIDERS, FormBuilder, Validators, AbstractControl, Control, ControlGroup } from '@angular/common';
-import { ValidationService} from './validation.service';
-import { SubscriptionService } from './subscription.service';
 import { ROUTER_DIRECTIVES, OnActivate } from '@angular/router';
 import { FormTabsService } from '../blocks/form-tabs/form-tabs';
+import { FormService, ValidationService } from '../form/form.export';
+import { SUBSCRIPTION_CONFIG, SubscriptionService } from './subscription.export';
 //import { FormMeta, Input, FormService } from '../form/form.service';
-import { FormService } from '../form/form.service';
-
-import { SUBSCRIPTION_CONFIG } from './subscription.config';
-
-
 
 @Component({
     selector: 'subscription-form-root',
@@ -22,9 +17,8 @@ export class StepInfosComponent implements OnInit, OnActivate {
     subscriptionForm: ControlGroup;
     //inputs: Input[];
     //metadata: FormMeta[];
-    private _validationMessages: { [id: string]: { [id: string]: string } };
+    private _validationMessages: Object;
     showErrors: Boolean = false;
-    //let subscriptionFormUrl = CONFIG.baseUrls.subscriptionForm;
     
     // Form controls
     name: AbstractControl;
@@ -38,25 +32,10 @@ export class StepInfosComponent implements OnInit, OnActivate {
         private _subscription: SubscriptionService,
         private _formTabs: FormTabsService
     ) {
-
         this.showErrors = false;  
         
         // Initialization of strings
-
-        this._validationMessages = {
-            'name': {
-                'required': 'Name is required'
-            },
-            'email': {
-               'required': 'email is required',
-               'invalidEmailAddress': 'invalidEmailAddress'
-            },
-            'director': {
-                'required': 'Director is required',
-                'minlength': 'Director must be at least 5 characters.',
-                'maxlength': 'Director cannot exceed 50 characters.'
-            }
-        };
+        this._validationMessages = SUBSCRIPTION_CONFIG.validationMessages;
 
         _subscription.setTime();
         console.log("SubscriptionClass", _subscription.getName(), _subscription.time)
@@ -65,7 +44,6 @@ export class StepInfosComponent implements OnInit, OnActivate {
     }
     
     routerOnActivate(): void {
-        
         this.nameControl = new Control('', Validators.compose([Validators.required]));
         
         // Validation by priority
@@ -84,11 +62,7 @@ export class StepInfosComponent implements OnInit, OnActivate {
         this.name = this.subscriptionForm.controls['name'];
         this.email = this.subscriptionForm.controls['email'];
         this.director = this.subscriptionForm.controls['director'];
-
     }
-    
-    
-    
 
    /**
    * @brief      Vérifie si un control est valide
@@ -97,15 +71,15 @@ export class StepInfosComponent implements OnInit, OnActivate {
    *
    * @return     Indique si le control est en erreur
    */
-  private isControlInvalid(control) {
-    let invalidControl: Boolean = false;
+    private isControlInvalid(control) {
+        let invalidControl: Boolean = false;
 
-    if (!control.valid && this.showErrors) {
-      invalidControl = true;
-    } 
+        if (!control.valid && this.showErrors) {
+        invalidControl = true;
+        } 
 
-     return invalidControl;    
-  }
+        return invalidControl;    
+    }
   
     ngOnInit() {
         //this.getInputs();

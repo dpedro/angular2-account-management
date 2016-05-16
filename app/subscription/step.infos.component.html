@@ -29,9 +29,9 @@
                 </div>      
                                  
                 <div class="form-group" [ngClass]="{'has-error': isControlInvalid(name) }">
-                    <label class="col-md-2 control-label" for="inputMovieTitle">Name</label>
+                    <label class="col-lg-24 col-md-24 control-label" for="inputMovieTitle">Name</label>
 
-                    <div class="col-md-8">
+                    <div class="col-lg-24 col-md-24">
                         <input class="form-control" 
                                 id="Name" 
                                 type="text" 
@@ -43,9 +43,9 @@
                     </div>
                 </div>
                 <div class="form-group" [ngClass]="{'has-error': isControlInvalid(email) }">
-                    <label class="col-md-2 control-label" for="inputMovieTitle">Email</label>
+                    <label class="col-lg-24 col-md-24 control-label" for="inputMovieTitle">Email</label>
 
-                    <div class="col-md-8">
+                    <div class="col-lg-24 col-md-24">
                         <input class="form-control" 
                                 id="Email" 
                                 type="text" 
@@ -57,9 +57,9 @@
                     </div>
                 </div>                
                 <div class="form-group" [ngClass]="{'has-error': isControlInvalid(director) }">
-                    <label class="col-md-2 control-label" for="inputDirector">Director</label>
+                    <label class="col-lg-24 col-md-24 control-label" for="inputDirector">Director</label>
 
-                    <div class="col-md-8">
+                    <div class="col-lg-24 col-md-24">
                         <input class="form-control" 
                                 id="inputDirector" 
                                 type="text" 
@@ -70,18 +70,8 @@
                         </span>
                     </div>
                 </div>
-                        
-  <!--                      
-  <label for="email">Email</label>
-  <input ngControl="email" id="email" />
-  <div [hidden]="email.valid">Invalid</div>
-  <div *ngIf="subscriptionForm.controls['email'].hasError('invalidEmailAddress')">Invalid Email</div>
-  <button type="submit" [disabled]="!subscriptionForm.valid">Submit</button>
-  -->
   <button type="submit">Submit</button>
 </form> 
-<!--a href="#/Dashboard">link to dashboard component</a>
-<a [routerLink]="['Dashboard']">link to dashboard component</a>-->
-<a href="#/Dashboard">link to dashboard component</a>
+<a [routerLink]="['/Dashboard']">link to dashboard component</a>
 <br />
 <a [routerLink]="['/Subscription/recap']">link to recap component</a>
