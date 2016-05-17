@@ -96,13 +96,13 @@ export class StepInfosComponent implements OnInit, OnActivate {
         return error;
     }
     validateForm() {
-        console.log("Save user");
+        //console.log("Save user");
         this.formErrors = this._formService.getFormErrors(this.subscriptionForm, this._validationMessages).errors; 
         console.log(this.formErrors);
         this.showErrors = true;
         // scroll to top
         scroll(0,0);
-        console.log(this.showErrors);
+        //console.log(this.showErrors);
     
         if (this.subscriptionForm.dirty && this.subscriptionForm.valid) {
             console.log(`Name: ${this.subscriptionForm.value.name} Email: ${this.subscriptionForm.value.email}`);
