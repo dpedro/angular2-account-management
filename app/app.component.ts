@@ -3,10 +3,11 @@ import { HTTP_PROVIDERS, XHRBackend } from '@angular/http';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router  } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy}  from '@angular/common';  
 
-import { DashboardComponent } from './dashboard/dashboard';
-import { SubscriptionComponent, SubscriptionService } from './subscription/subscription.export';
-import { ExceptionService, FormTabsService } from './blocks/blocks.export';
-import { FormService } from './form/form.export';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SubscriptionService } from './subscription/subscription.service';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { ExceptionService } from './blocks/exception.service';
+import { FormService } from './form/form.service';
 
 
 @Component({
